@@ -44,59 +44,59 @@ public class Main extends AppCompatActivity {
             public void onClick(View v) {                                                                //Обработка кнопок от 1 до 9, математических действий /, *, +, - и результата
                 switch (v.getId()){
                     case R.id.buttonResult:
-                        ResultButton();
+                        resultButton();
                         break;
                     case R.id.buttonOne:
                         debugNumbers = "1";
-                        DebugNumbersError();
+                        debugNumbersError();
                         break;
                     case R.id.buttonTwo:
                         debugNumbers = "2";
-                        DebugNumbersError();
+                        debugNumbersError();
                         break;
                     case R.id.buttonThree:
                         debugNumbers = "3";
-                        DebugNumbersError();
+                        debugNumbersError();
                         break;
                     case R.id.buttonFour:
                         debugNumbers = "4";
-                        DebugNumbersError();
+                        debugNumbersError();
                         break;
                     case R.id.buttonFive:
                         debugNumbers = "5";
-                        DebugNumbersError();
+                        debugNumbersError();
                         break;
                     case R.id.buttonSix:
                         debugNumbers = "6";
-                        DebugNumbersError();
+                        debugNumbersError();
                         break;
                     case R.id.buttonSeven:
                         debugNumbers = "7";
-                        DebugNumbersError();
+                        debugNumbersError();
                         break;
                     case R.id.buttonEight:
                         debugNumbers = "8";
-                        DebugNumbersError();
+                        debugNumbersError();
                         break;
                     case R.id.buttonNine:
                         debugNumbers = "9";
-                        DebugNumbersError();
+                        debugNumbersError();
                         break;
                     case R.id.buttonSplit:
                         act = "/";
-                        DebugActionError();
+                        debugActionError();
                         break;
                     case R.id.buttonMultiply:
                         act = "*";
-                        DebugActionError();
+                        debugActionError();
                         break;
                     case R.id.buttonPlus:
                         act = "+";
-                        DebugActionError();
+                        debugActionError();
                         break;
                     case R.id.buttonMinus:
                         act = "-";
-                        DebugActionError();
+                        debugActionError();
                         break;
                 }
             }
@@ -128,13 +128,13 @@ public class Main extends AppCompatActivity {
 
     public void onClickButtonOpenBracket(View view) {                                                   //Обработчики кнопок скобок
         if(result.length() == 0){
-            result = result + "(";
-            history = history + "(";
+            result += "(";
+            history += "(";
             resultView.setText(result);
             temporaryResultView.setText(history);
         }else if((history.charAt(history.length()-1) == '/') | (history.charAt(history.length()-1) == '*') | (history.charAt(history.length()-1) == '+') | (history.charAt(history.length()-1) == '-')){
-            result = result + "(";
-            history = history + "(";
+            result += "(";
+            history += "(";
             resultView.setText(result);
             temporaryResultView.setText(history);
         }
@@ -149,8 +149,8 @@ public class Main extends AppCompatActivity {
             }
         }
         if((openBrackets != closeBrackets) & ((history.charAt(history.length()-1) == '1') | (history.charAt(history.length()-1) == '2') | (history.charAt(history.length()-1) == '3') | (history.charAt(history.length()-1) == '4') | (history.charAt(history.length()-1) == '5') | (history.charAt(history.length()-1) == '6') | (history.charAt(history.length()-1) == '7') | (history.charAt(history.length()-1) == '8') | (history.charAt(history.length()-1) == '9') | (history.charAt(history.length()-1) == '0'))){
-            result = result + ")";
-            history = history + ")";
+            result += ")";
+            history += ")";
             resultView.setText(result);
             temporaryResultView.setText(history);
         }
@@ -159,17 +159,17 @@ public class Main extends AppCompatActivity {
     }
 
     public void onClickButtonDelete(View view) {                                                        //Обработчик кнопки удаления по одному символу
-        DeleteLastSymbol();
+        deleteLastSymbol();
     }
 
     public void onClickButtonAC(View view) {                                                            //Обработчик кнопки полной очистки
-        CleanAll();
+        cleanAll();
     }
 
     public void onClickButtonZero(View view) {                                                          //Обработчик кнопки 0
         if(result.length() > 0){
-            result = result + "0";
-            history = history + "0";
+            result += "0";
+            history += "0";
             resultView.setText(result);
             temporaryResultView.setText(history);
         }
@@ -177,60 +177,60 @@ public class Main extends AppCompatActivity {
 
     public void onClickButtonPoint(View view) {                                                         //Обработчик кнопки .
         if(result.indexOf('.') == -1 & result.length() != 0){
-            result = result + ".";
-            history = history + ".";
+            result += ".";
+            history += ".";
             resultView.setText(result);
             temporaryResultView.setText(history);
         }else if(result.length() == 0){
-            result = result + "0.";
-            history = history + "0.";
+            result += "0.";
+            history += "0.";
             resultView.setText(result);
             temporaryResultView.setText(history);
         }
         }
 
-    public void DebugNumbersError(){                                                                    //Функция обработки ошибок при вводе знаков от 1 до 9
+    public void debugNumbersError(){                                                                    //Функция обработки ошибок при вводе знаков от 1 до 9
         if(result == "" & act == ""){                                                                   //Ошибка при которой перед цифрой не затирался 0
             result = debugNumbers;
             history = debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
         }else if(result != "" & act == ""){                                                             //Ввод чисел
-            result = result + debugNumbers;
-            history = history + debugNumbers;
+            result += debugNumbers;
+            history += debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
         }else if(act != ""){                                                                            //ввод чисел после указанного математического действия
-            result = result + debugNumbers;
-            history = history + debugNumbers;
+            result += debugNumbers;
+            history += debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
         }
     }
 
-        public void DebugActionError() {                                                                //Функция обработки ошибок при вводе знаков математических дейтвий /, *, +, -
+        public void debugActionError() {                                                                //Функция обработки ошибок при вводе знаков математических дейтвий /, *, +, -
             if (result.length() != 0 & history.length() != 0) {                                                                         //Ввод знака
                 result = "";
                 resultView.setText("");
-                history = history + "" + act + "";
+                history += act;
                 temporaryResultView.setText(history);
             }else if(history.length() == 0){
-                CleanAll();
+                cleanAll();
             }else if((history.charAt(history.length()-1) == '/') | (history.charAt(history.length()-1) == '*') | (history.charAt(history.length()-1) == '+') | (history.charAt(history.length()-1) == '-')){         //При введенном знаке заменяет его другим, при повторном выборе знака
-                DeleteLastSymbol();
-                history = history + "" + act + "";
+                deleteLastSymbol();
+                history += act;
                 temporaryResultView.setText(history);
             }
         }
 
-        public void DeleteLastSymbol(){                                                                 //Функция удаления последнего символа
+        public void deleteLastSymbol(){                                                                 //Функция удаления последнего символа
             if(result.length() == 0 & history.length() == 0){
-                CleanAll();
+                cleanAll();
             }else if(result.length() == 0 & history.length() != 0){                                     //Очистка истории, при пустом result
                 history = history.substring(0, history.length() -1);
                 temporaryResultView.setText(history);
             }else if(history.length() == 0){                                                            //Случай, когда history пуста
-             CleanAll();
+             cleanAll();
             }else{                                                                                      //Обычный случай
                 result = result.substring(0, result.length() -1);
                 history = history.substring(0, history.length() -1);
@@ -239,7 +239,7 @@ public class Main extends AppCompatActivity {
             }
         }
 
-        public void CleanAll(){                                                                         //Функция очистки экрана, кроме истории
+        public void cleanAll(){                                                                         //Функция очистки экрана, кроме истории
             temporaryResultView.setText("");
             resultView.setText("0");
             debugNumbers = "";
@@ -248,17 +248,19 @@ public class Main extends AppCompatActivity {
             act = "";
         }
 
-    public void ResultButton() {                                                                         //Функция обработки результата
+    public void resultButton() {                                                                         //Функция обработки результата
         if(history.length() == 0){
-            CleanAll();
+            cleanAll();
         }else if((history.charAt(history.length()-1) == '/') | (history.charAt(history.length()-1) == '*') | (history.charAt(history.length()-1) == '+') | (history.charAt(history.length()-1) == '-') & history.length() != 0){
-        DeleteLastSymbol();
-        HistoryOutput();
+        deleteLastSymbol();
+        historyOutput();
+        }else if(history.charAt(history.length()-1) == '.'){
+            deleteLastSymbol();
         }else{
-            HistoryOutput();
+            historyOutput();
         }
     }
-    public void HistoryOutput(){                                                                        //Сохранение истории дейсвий
+    public void historyOutput(){                                                                        //Сохранение истории дейсвий
         historyGlob = historyGlob + history + " = " + result + "\n";
         historyView.setText(historyGlob);
         history = "";

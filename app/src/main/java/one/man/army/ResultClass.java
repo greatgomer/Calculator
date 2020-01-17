@@ -6,10 +6,10 @@ public class ResultClass{                                                       
         switch (symbol){
             case '*':
             case '/':
-            return 2;
+                return 2;
             case '+':
             case '-':
-            return 1;
+                return 1;
             default:
                 return -1;
         }
