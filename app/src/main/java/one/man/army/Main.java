@@ -12,33 +12,32 @@ public class Main extends AppCompatActivity {
     TextView resultView, historyView, historyUpView, temporaryResultView;
     Button btnPoint, btnResult, btnSplit, btnMultiply, btnMinus, btnPlus, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
     String result = "", history = "",debugNumbers = "", act = "", historyGlob = "";
-    Integer openBreckets = 0, closeBrackets = 0;
-    ResultClass resultClass = new ResultClass();
+    Integer openBrackets = 0, closeBrackets = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
 
-        resultView = (TextView) findViewById(R.id.textViewResult);
-        historyView = (TextView) findViewById(R.id.textViewHist);
-        historyUpView = (TextView) findViewById(R.id.textViewHistory);
-        temporaryResultView = (TextView) findViewById(R.id.textTemporaryResult);
-        btnPoint = (Button) findViewById(R.id.buttonPoint);
-        btnResult = (Button) findViewById(R.id.buttonResult);
-        btnOne = (Button) findViewById(R.id.buttonOne);
-        btnTwo = (Button) findViewById(R.id.buttonTwo);
-        btnThree = (Button) findViewById(R.id.buttonThree);
-        btnFour = (Button) findViewById(R.id.buttonFour);
-        btnFive = (Button) findViewById(R.id.buttonFive);
-        btnSix = (Button) findViewById(R.id.buttonSix);
-        btnSeven = (Button) findViewById(R.id.buttonSeven);
-        btnEight = (Button) findViewById(R.id.buttonEight);
-        btnNine = (Button) findViewById(R.id.buttonNine);
-        btnSplit = (Button) findViewById(R.id.buttonSplit);
-        btnMultiply = (Button) findViewById(R.id.buttonMultiply);
-        btnMinus = (Button) findViewById(R.id.buttonMinus);
-        btnPlus = (Button) findViewById(R.id.buttonPlus);
+        resultView = findViewById(R.id.textViewResult);
+        historyView = findViewById(R.id.textViewHist);
+        historyUpView = findViewById(R.id.textViewHistory);
+        temporaryResultView = findViewById(R.id.textTemporaryResult);
+        btnPoint = findViewById(R.id.buttonPoint);
+        btnResult = findViewById(R.id.buttonResult);
+        btnOne = findViewById(R.id.buttonOne);
+        btnTwo = findViewById(R.id.buttonTwo);
+        btnThree = findViewById(R.id.buttonThree);
+        btnFour = findViewById(R.id.buttonFour);
+        btnFive = findViewById(R.id.buttonFive);
+        btnSix = findViewById(R.id.buttonSix);
+        btnSeven = findViewById(R.id.buttonSeven);
+        btnEight = findViewById(R.id.buttonEight);
+        btnNine = findViewById(R.id.buttonNine);
+        btnSplit = findViewById(R.id.buttonSplit);
+        btnMultiply = findViewById(R.id.buttonMultiply);
+        btnMinus = findViewById(R.id.buttonMinus);
+        btnPlus = findViewById(R.id.buttonPlus);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -144,23 +143,23 @@ public class Main extends AppCompatActivity {
     public void onClickButtonCloseBracket(View view) {
         for (int i = 0; i < history.length(); i++){
             if(history.charAt(i) == '('){
-                openBreckets ++;
+                openBrackets ++;
             }else if(history.charAt(i) == ')') {
                 closeBrackets++;
             }
         }
-        if((openBreckets != closeBrackets) & ((history.charAt(history.length()-1) == '1') | (history.charAt(history.length()-1) == '2') | (history.charAt(history.length()-1) == '3') | (history.charAt(history.length()-1) == '4') | (history.charAt(history.length()-1) == '5') | (history.charAt(history.length()-1) == '6') | (history.charAt(history.length()-1) == '7') | (history.charAt(history.length()-1) == '8') | (history.charAt(history.length()-1) == '9') | (history.charAt(history.length()-1) == '0'))){
+        if((openBrackets != closeBrackets) & ((history.charAt(history.length()-1) == '1') | (history.charAt(history.length()-1) == '2') | (history.charAt(history.length()-1) == '3') | (history.charAt(history.length()-1) == '4') | (history.charAt(history.length()-1) == '5') | (history.charAt(history.length()-1) == '6') | (history.charAt(history.length()-1) == '7') | (history.charAt(history.length()-1) == '8') | (history.charAt(history.length()-1) == '9') | (history.charAt(history.length()-1) == '0'))){
             result = result + ")";
             history = history + ")";
             resultView.setText(result);
             temporaryResultView.setText(history);
         }
-        openBreckets = 0;
+        openBrackets = 0;
         closeBrackets = 0;
     }
 
     public void onClickButtonDelete(View view) {                                                        //Обработчик кнопки удаления по одному символу
-        DeleteLastSumbol();
+        DeleteLastSymbol();
     }
 
     public void onClickButtonAC(View view) {                                                            //Обработчик кнопки полной очистки
@@ -218,13 +217,13 @@ public class Main extends AppCompatActivity {
             }else if(history.length() == 0){
                 CleanAll();
             }else if((history.charAt(history.length()-1) == '/') | (history.charAt(history.length()-1) == '*') | (history.charAt(history.length()-1) == '+') | (history.charAt(history.length()-1) == '-')){         //При введенном знаке заменяет его другим, при повторном выборе знака
-                DeleteLastSumbol();
+                DeleteLastSymbol();
                 history = history + "" + act + "";
                 temporaryResultView.setText(history);
             }
         }
 
-        public void DeleteLastSumbol(){                                                                 //Функция удаления последнего символа
+        public void DeleteLastSymbol(){                                                                 //Функция удаления последнего символа
             if(result.length() == 0 & history.length() == 0){
                 CleanAll();
             }else if(result.length() == 0 & history.length() != 0){                                     //Очистка истории, при пустом result
@@ -253,11 +252,9 @@ public class Main extends AppCompatActivity {
         if(history.length() == 0){
             CleanAll();
         }else if((history.charAt(history.length()-1) == '/') | (history.charAt(history.length()-1) == '*') | (history.charAt(history.length()-1) == '+') | (history.charAt(history.length()-1) == '-') & history.length() != 0){
-        DeleteLastSumbol();
-        resultClass.Alhorithm(history);
+        DeleteLastSymbol();
         HistoryOutput();
         }else{
-            resultClass.Alhorithm(history);
             HistoryOutput();
         }
     }
