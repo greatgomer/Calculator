@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="history">История действий</string>
+    <string name="historyUp">Нажмите, чтобы очистить историю</string>
+    <string name="empty"></string>
+    <string name="result">0</string>
+    <string name="ButtonPlus">+</string>
+    <string name="ButtonMinus">-</string>
+    <string name="ButtonMiltiply">*</string>
+    <string name="ButtonSplit">/</string>
+    <string name="ButtonOpenBracket">(</string>
+    <string name="ButtonCloseBracket">)</string>
+    <string name="ButtonDelele">del</string>
+    <string name="ButtonAC">AC</string>
+    <string name="ButtonOne">1</string>
+    <string name="ButtonTwo">2</string>
+    <string name="ButtonThree">3</string>
+    <string name="ButtonFour">4</string>
+    <string name="ButtonFive">5</string>
+    <string name="ButtonSix">6</string>
+    <string name="ButtonSeven">7</string>
+    <string name="ButtonEight">8</string>
+    <string name="ButtonNine">9</string>
+    <string name="ButtonPoint">.</string>
+    <string name="ButtonZero">0</string>
+    <string name="ButtonResult">=</string>
+</resources>
