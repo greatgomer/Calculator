@@ -7,12 +7,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Main extends AppCompatActivity {
 
     TextView resultView, historyView, historyUpView, temporaryResultView;
     Button btnPoint, btnResult, btnSplit, btnMultiply, btnMinus, btnPlus, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
     String result = "", history = "",debugNumbers = "", act = "", historyGlob = "";
     Integer openBrackets = 0, closeBrackets = 0;
+    ResultClass resultClass = new ResultClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,12 +131,14 @@ public class Main extends AppCompatActivity {
     }
 
     public void onClickButtonOpenBracket(View view) {                                                   //Обработчики кнопок скобок
+        Pattern pattern = Pattern.compile("[/*+-]$");
+        Matcher matcher = pattern.matcher(history);
         if(result.length() == 0){
             result += "(";
             history += "(";
             resultView.setText(result);
             temporaryResultView.setText(history);
-        }else if((history.charAt(history.length()-1) == '/') | (history.charAt(history.length()-1) == '*') | (history.charAt(history.length()-1) == '+') | (history.charAt(history.length()-1) == '-')){
+        }else if(matcher.find()){
             result += "(";
             history += "(";
             resultView.setText(result);
@@ -141,6 +147,8 @@ public class Main extends AppCompatActivity {
     }
 
     public void onClickButtonCloseBracket(View view) {
+        Pattern pattern = Pattern.compile("\\d$");
+        Matcher matcher = pattern.matcher(history);
         for (int i = 0; i < history.length(); i++){
             if(history.charAt(i) == '('){
                 openBrackets ++;
@@ -148,7 +156,7 @@ public class Main extends AppCompatActivity {
                 closeBrackets++;
             }
         }
-        if((openBrackets != closeBrackets) & ((history.charAt(history.length()-1) == '1') | (history.charAt(history.length()-1) == '2') | (history.charAt(history.length()-1) == '3') | (history.charAt(history.length()-1) == '4') | (history.charAt(history.length()-1) == '5') | (history.charAt(history.length()-1) == '6') | (history.charAt(history.length()-1) == '7') | (history.charAt(history.length()-1) == '8') | (history.charAt(history.length()-1) == '9') | (history.charAt(history.length()-1) == '0'))){
+        if((openBrackets != closeBrackets) & (matcher.find())){
             result += ")";
             history += ")";
             resultView.setText(result);
@@ -209,6 +217,8 @@ public class Main extends AppCompatActivity {
     }
 
         public void debugActionError() {                                                                //Функция обработки ошибок при вводе знаков математических дейтвий /, *, +, -
+            Pattern pattern = Pattern.compile("[/*+-]$");
+            Matcher matcher = pattern.matcher(history);
             if (result.length() != 0 & history.length() != 0) {                                                                         //Ввод знака
                 result = "";
                 resultView.setText("");
@@ -216,7 +226,7 @@ public class Main extends AppCompatActivity {
                 temporaryResultView.setText(history);
             }else if(history.length() == 0){
                 cleanAll();
-            }else if((history.charAt(history.length()-1) == '/') | (history.charAt(history.length()-1) == '*') | (history.charAt(history.length()-1) == '+') | (history.charAt(history.length()-1) == '-')){         //При введенном знаке заменяет его другим, при повторном выборе знака
+            }else if(matcher.find()){                                                                     //При введенном знаке заменяет его другим, при повторном выборе знака
                 deleteLastSymbol();
                 history += act;
                 temporaryResultView.setText(history);
@@ -251,12 +261,8 @@ public class Main extends AppCompatActivity {
     public void resultButton() {                                                                         //Функция обработки результата
         if(history.length() == 0){
             cleanAll();
-        }else if((history.charAt(history.length()-1) == '/') | (history.charAt(history.length()-1) == '*') | (history.charAt(history.length()-1) == '+') | (history.charAt(history.length()-1) == '-') & history.length() != 0){
-        deleteLastSymbol();
-        historyOutput();
-        }else if(history.charAt(history.length()-1) == '.'){
-            deleteLastSymbol();
         }else{
+            resultClass.resultCheker(history);
             historyOutput();
         }
     }
