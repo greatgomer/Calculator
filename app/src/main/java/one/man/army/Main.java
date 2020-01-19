@@ -184,14 +184,11 @@ public class Main extends AppCompatActivity {
     }
 
     public void onClickButtonPoint(View view) {                                                         //Обработчик кнопки .
-        if(result.indexOf('.') == -1 & result.length() != 0){
+        Pattern pattern = Pattern.compile("\\d$");
+        Matcher matcher = pattern.matcher(history);
+        if(result.indexOf('.') == -1 & matcher.find()){
             result += ".";
             history += ".";
-            resultView.setText(result);
-            temporaryResultView.setText(history);
-        }else if(result.length() == 0){
-            result += "0.";
-            history += "0.";
             resultView.setText(result);
             temporaryResultView.setText(history);
         }
