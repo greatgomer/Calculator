@@ -156,7 +156,7 @@ public class Main extends AppCompatActivity {
                 closeBrackets++;
             }
         }
-        if((openBrackets != closeBrackets) & (matcher.find())){
+        if((!openBrackets.equals(closeBrackets)) & (matcher.find())){
             result += ")";
             history += ")";
             resultView.setText(result);
@@ -195,12 +195,12 @@ public class Main extends AppCompatActivity {
         }
 
     public void debugNumbersError(){                                                                    //Функция обработки ошибок при вводе знаков от 1 до 9
-        if(result == "" & act == ""){                                                                   //Ошибка при которой перед цифрой не затирался 0
+        if(result.equals("") & act.equals("")){                                                                   //Ошибка при которой перед цифрой не затирался 0
             result = debugNumbers;
             history = debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
-        }else if(result != "" & act == ""){                                                             //Ввод чисел
+        }else if(!result.equals("") & act == ""){                                                             //Ввод чисел
             result += debugNumbers;
             history += debugNumbers;
             resultView.setText(result);
