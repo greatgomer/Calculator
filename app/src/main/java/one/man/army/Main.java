@@ -45,7 +45,7 @@ public class Main extends AppCompatActivity {
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {                                                                //Обработка кнопок от 1 до 9, математических действий /, *, +, - и результата
+            public void onClick(View v) {                                                  //Обработка кнопок от 1 до 9, математических действий /, *, +, - и результата
                 switch (v.getId()){
                     case R.id.buttonResult:
                         resultButton();
@@ -195,17 +195,17 @@ public class Main extends AppCompatActivity {
         }
 
     public void debugNumbersError(){                                                                    //Функция обработки ошибок при вводе знаков от 1 до 9
-        if(result.equals("") & act.equals("")){                                                                   //Ошибка при которой перед цифрой не затирался 0
+        if(result.equals("") & act.equals("")){                                                         //Ошибка при которой перед цифрой не затирался 0
             result = debugNumbers;
             history = debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
-        }else if(!result.equals("") & act == ""){                                                             //Ввод чисел
+        }else if(!result.equals("") & act == ""){                                                       //Ввод чисел
             result += debugNumbers;
             history += debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
-        }else if(act != ""){                                                                            //ввод чисел после указанного математического действия
+        }else if(act != ""){                                                                            //Ввод чисел после указанного математического действия
             result += debugNumbers;
             history += debugNumbers;
             resultView.setText(result);
@@ -216,7 +216,7 @@ public class Main extends AppCompatActivity {
         public void debugActionError() {                                                                //Функция обработки ошибок при вводе знаков математических дейтвий /, *, +, -
             Pattern pattern = Pattern.compile("[/*+-]$");
             Matcher matcher = pattern.matcher(history);
-            if (result.length() != 0 & history.length() != 0) {                                                                         //Ввод знака
+            if (result.length() != 0 & history.length() != 0) {                                         //Ввод знака
                 result = "";
                 resultView.setText("");
                 history += act;
@@ -259,7 +259,8 @@ public class Main extends AppCompatActivity {
         if(history.length() == 0){
             cleanAll();
         }else{
-            resultClass.resultCheker(history);
+            String finalResult = resultClass.resultCheker(history);
+            resultView.setText(finalResult);
             historyOutput();
         }
     }
