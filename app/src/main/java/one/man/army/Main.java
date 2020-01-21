@@ -133,15 +133,11 @@ public class Main extends AppCompatActivity {
     public void onClickButtonOpenBracket(View view) {                                                   //Обработчики кнопок скобок
         Pattern pattern = Pattern.compile("[/*+-]$");
         Matcher matcher = pattern.matcher(history);
-        if(result.length() == 0){
-            result += "(";
+        if(result.length() == 0 & history.length() == 0){
             history += "(";
-            resultView.setText(result);
             temporaryResultView.setText(history);
         }else if(matcher.find()){
-            result += "(";
             history += "(";
-            resultView.setText(result);
             temporaryResultView.setText(history);
         }
     }
@@ -157,13 +153,13 @@ public class Main extends AppCompatActivity {
             }
         }
         if((!openBrackets.equals(closeBrackets)) & (matcher.find())){
-            result += ")";
             history += ")";
-            resultView.setText(result);
             temporaryResultView.setText(history);
         }
         openBrackets = 0;
         closeBrackets = 0;
+        result ="";
+        resultView.setText(result);
     }
 
     public void onClickButtonDelete(View view) {                                                        //Обработчик кнопки удаления по одному символу
@@ -197,15 +193,15 @@ public class Main extends AppCompatActivity {
     public void debugNumbersError(){                                                                    //Функция обработки ошибок при вводе знаков от 1 до 9
         if(result.equals("") & act.equals("")){                                                         //Ошибка при которой перед цифрой не затирался 0
             result = debugNumbers;
-            history = debugNumbers;
+            history += debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
-        }else if(!result.equals("") & act == ""){                                                       //Ввод чисел
+        }else if(!result.equals("")){                                                                  //Ввод чисел
             result += debugNumbers;
             history += debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
-        }else if(act != ""){                                                                            //Ввод чисел после указанного математического действия
+        }else if(!history.equals("") & history.charAt(history.length()-1) != ')'){                       //Ввод чисел
             result += debugNumbers;
             history += debugNumbers;
             resultView.setText(result);
@@ -225,6 +221,9 @@ public class Main extends AppCompatActivity {
                 cleanAll();
             }else if(matcher.find()){                                                                     //При введенном знаке заменяет его другим, при повторном выборе знака
                 deleteLastSymbol();
+                history += act;
+                temporaryResultView.setText(history);
+            }else if(history.length() != 0 & history.charAt(history.length()-1) != '('){
                 history += act;
                 temporaryResultView.setText(history);
             }
@@ -261,10 +260,12 @@ public class Main extends AppCompatActivity {
         }else{
             String finalResult = resultClass.resultCheker(history);
             resultView.setText(finalResult);
-            historyOutput();
+            historyOutput(finalResult);
+            result = "";
+            act ="";
         }
     }
-    public void historyOutput(){                                                                        //Сохранение истории дейсвий
+    public void historyOutput(String result){                                                           //Сохранение истории дейсвий
         historyGlob = historyGlob + history + " = " + result + "\n";
         historyView.setText(historyGlob);
         history = "";
