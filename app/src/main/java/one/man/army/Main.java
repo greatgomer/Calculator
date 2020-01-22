@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class Main extends AppCompatActivity {
 
     TextView resultView, historyView, historyUpView, temporaryResultView;
-    Button btnPoint, btnResult, btnSplit, btnMultiply, btnMinus, btnPlus, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
+    Button btnPoint, btnResult, btnSplit, btnMultiply, btnPlus, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
     String result = "", history = "",debugNumbers = "", act = "", historyGlob = "";
     Integer openBrackets = 0, closeBrackets = 0;
     ResultClass resultClass = new ResultClass();
@@ -40,7 +40,6 @@ public class Main extends AppCompatActivity {
         btnNine = findViewById(R.id.buttonNine);
         btnSplit = findViewById(R.id.buttonSplit);
         btnMultiply = findViewById(R.id.buttonMultiply);
-        btnMinus = findViewById(R.id.buttonMinus);
         btnPlus = findViewById(R.id.buttonPlus);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -98,10 +97,6 @@ public class Main extends AppCompatActivity {
                         act = "+";
                         debugActionError();
                         break;
-                    case R.id.buttonMinus:
-                        act = "-";
-                        debugActionError();
-                        break;
                 }
             }
         };
@@ -118,7 +113,6 @@ public class Main extends AppCompatActivity {
         btnSplit.setOnClickListener(onClickListener);
         btnMultiply.setOnClickListener(onClickListener);
         btnPlus.setOnClickListener(onClickListener);
-        btnMinus.setOnClickListener(onClickListener);
 
         historyUpView.setOnClickListener(new View.OnClickListener() {                                   //Сброс истории действий при нажатии на элемент
             @Override
@@ -158,7 +152,6 @@ public class Main extends AppCompatActivity {
         }
         openBrackets = 0;
         closeBrackets = 0;
-        result ="";
         resultView.setText(result);
     }
 
@@ -171,7 +164,17 @@ public class Main extends AppCompatActivity {
     }
 
     public void onClickButtonZero(View view) {                                                          //Обработчик кнопки 0
-        if(result.length() > 0){
+        if(history.length() == 0){
+            result += "0";
+            history += "0";
+            resultView.setText(result);
+            temporaryResultView.setText(history);
+        }else if(history.charAt(history.length()-1) != '0' & history.charAt(history.length()-1) != ')' | history.charAt(history.length()-1) == '('){
+            result += "0";
+            history += "0";
+            resultView.setText(result);
+            temporaryResultView.setText(history);
+        }else if(result.length() > 1){
             result += "0";
             history += "0";
             resultView.setText(result);
@@ -191,17 +194,12 @@ public class Main extends AppCompatActivity {
         }
 
     public void debugNumbersError(){                                                                    //Функция обработки ошибок при вводе знаков от 1 до 9
-        if(result.equals("") & act.equals("")){                                                         //Ошибка при которой перед цифрой не затирался 0
+        if(result.equals("") & act.equals("") & history.equals("")){                                    //Ошибка при которой перед цифрой не затирался 0
             result = debugNumbers;
             history += debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
-        }else if(!result.equals("")){                                                                  //Ввод чисел
-            result += debugNumbers;
-            history += debugNumbers;
-            resultView.setText(result);
-            temporaryResultView.setText(history);
-        }else if(!history.equals("") & history.charAt(history.length()-1) != ')'){                       //Ввод чисел
+        }else if(history.length() > 0 & history.charAt(history.length()-1) != '0' & history.charAt(history.length()-1) != ')'){
             result += debugNumbers;
             history += debugNumbers;
             resultView.setText(result);
@@ -209,25 +207,37 @@ public class Main extends AppCompatActivity {
         }
     }
 
-        public void debugActionError() {                                                                //Функция обработки ошибок при вводе знаков математических дейтвий /, *, +, -
-            Pattern pattern = Pattern.compile("[/*+-]$");
+        public void debugActionError() {                                                                //Функция обработки ошибок при вводе знаков математических дейтвий /, *, +
+            Pattern pattern = Pattern.compile("\\d$");
             Matcher matcher = pattern.matcher(history);
-            if (result.length() != 0 & history.length() != 0) {                                         //Ввод знака
+            if(matcher.find()){
                 result = "";
-                resultView.setText("");
-                history += act;
-                temporaryResultView.setText(history);
-            }else if(history.length() == 0){
-                cleanAll();
-            }else if(matcher.find()){                                                                     //При введенном знаке заменяет его другим, при повторном выборе знака
-                deleteLastSymbol();
-                history += act;
-                temporaryResultView.setText(history);
-            }else if(history.length() != 0 & history.charAt(history.length()-1) != '('){
+                resultView.setText(result);
                 history += act;
                 temporaryResultView.setText(history);
             }
         }
+
+    public void onClickMinus(View view) {                                                               //Функция обработки -
+        Pattern pattern = Pattern.compile("\\d$");
+        Matcher matcher = pattern.matcher(history);
+        if(result.equals("") & history.equals("")){
+            result = "-";
+            resultView.setText("");
+            history = "-";
+            temporaryResultView.setText(history);
+        }else if(history.charAt(history.length()-1) == '('){
+            result += "-";
+            resultView.setText("");
+            history += "-";
+            temporaryResultView.setText(history);
+        }else if(matcher.find()){
+            result += "-";
+            resultView.setText("");
+            history += "-";
+            temporaryResultView.setText(history);
+        }
+    }
 
         public void deleteLastSymbol(){                                                                 //Функция удаления последнего символа
             if(result.length() == 0 & history.length() == 0){

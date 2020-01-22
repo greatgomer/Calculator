@@ -1,6 +1,7 @@
 package one.man.army;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,6 +12,10 @@ public class ResultClass {
     private Stack<String> operations = new Stack<>();
 
     String resultCheker(String history) {                                                                //Проверка вводимой строки на наличие знаков математических действий и .
+        history = history.replace("(-", "(0-");
+        if(history.charAt(0) == '-') {
+            history = "0" + history;
+        }
         Pattern pattern = Pattern.compile("[./*+-]$");
         Matcher matcher = pattern.matcher(history);
         if (matcher.find()) {
@@ -37,6 +42,7 @@ public class ResultClass {
 
     private ArrayList algoritm() {                                                                          //Реализация алгоритма Обратной Польской Нотации
         String[] numbers = result.split("(?=[()/*+-])|(?<=[()/*+-])");
+        numbers = negativeNumbers(numbers);
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i].matches("\\d+$") | (numbers[i].matches("\\d+(\\.\\d+)"))) {
                 finalMass.add(numbers[i]);
@@ -109,5 +115,25 @@ public class ResultClass {
             }
         }
         return calculatorResult;
+    }
+
+    private String[] negativeNumbers(String[] result) {                                                 //Функция обработки отрицательных чисел
+        ArrayList arrayList = new ArrayList<String>();
+        Collections.addAll(arrayList, result);
+        String[] arr = new String[0];
+        if (arrayList.get(0).equals("-")) {
+            arrayList.add(0, "0");
+            arrayList.add(0, "(");
+            arrayList.add(4, ")");
+        }
+        for(int i = 0; i < arrayList.size()-1; i++){
+            if(arrayList.get(i).equals("(") & arrayList.get(i+1).equals("-")) {
+                arrayList.add(i+1, "0");
+                arrayList.add(i+1, "(");
+                arrayList.add(i+5, ")");
+            }
+        }
+        arr = (String[]) arrayList.toArray(new String[arrayList.size()]);
+        return arr;
     }
 }
