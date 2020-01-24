@@ -199,7 +199,9 @@ public class Main extends AppCompatActivity {
             history += debugNumbers;
             resultView.setText(result);
             temporaryResultView.setText(history);
-        }else if(history.length() > 0 & history.charAt(history.length()-1) != '0' & history.charAt(history.length()-1) != ')'){
+        }else if(result.equals("0")){
+            resultView.setText(result);
+        }else if(history.length() > 0 & history.charAt(history.length()-1) != ')'){
             result += debugNumbers;
             history += debugNumbers;
             resultView.setText(result);
