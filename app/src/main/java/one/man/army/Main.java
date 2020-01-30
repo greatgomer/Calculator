@@ -217,6 +217,11 @@ public class Main extends AppCompatActivity {
                 resultView.setText(result);
                 history += act;
                 temporaryResultView.setText(history);
+            }else if(history.length() > 0 & history.charAt(history.length()-1) == ')'){
+                result = "";
+                resultView.setText(result);
+                history += act;
+                temporaryResultView.setText(history);
             }
         }
 
@@ -235,6 +240,11 @@ public class Main extends AppCompatActivity {
             temporaryResultView.setText(history);
         }else if(matcher.find()){
             result += "-";
+            resultView.setText("");
+            history += "-";
+            temporaryResultView.setText(history);
+        }else if(history.length() > 0 & history.charAt(history.length()-1) == ')'){
+            result = "";
             resultView.setText("");
             history += "-";
             temporaryResultView.setText(history);
