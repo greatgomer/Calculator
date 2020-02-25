@@ -17,6 +17,7 @@ public class Main extends AppCompatActivity {
     String result = "", history = "",debugNumbers = "", act = "", historyGlob = "";
     Integer openBrackets = 0, closeBrackets = 0;
     ResultClass resultClass = new ResultClass();
+    ButtonsBrackets buttonsBrackets = new ButtonsBrackets();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,34 +125,14 @@ public class Main extends AppCompatActivity {
         });
     }
 
-    public void onClickButtonOpenBracket(View view) {                                                   //Обработчики кнопок скобок
-        Pattern pattern = Pattern.compile("[/*+-]$");
-        Matcher matcher = pattern.matcher(history);
-        if(result.length() == 0 & history.length() == 0){
-            history += "(";
-            temporaryResultView.setText(history);
-        }else if(matcher.find()){
-            history += "(";
-            temporaryResultView.setText(history);
-        }
+    public void onClickButtonOpenBracket(View view) {                                                   //Обработчик открытой скобки
+        history = buttonsBrackets.openBrackets(history, result);
+        temporaryResultView.setText(history);
     }
 
-    public void onClickButtonCloseBracket(View view) {
-        Pattern pattern = Pattern.compile("\\d$");
-        Matcher matcher = pattern.matcher(history);
-        for (int i = 0; i < history.length(); i++){
-            if(history.charAt(i) == '('){
-                openBrackets ++;
-            }else if(history.charAt(i) == ')') {
-                closeBrackets++;
-            }
-        }
-        if((!openBrackets.equals(closeBrackets)) & (matcher.find())){
-            history += ")";
-            temporaryResultView.setText(history);
-        }
-        openBrackets = 0;
-        closeBrackets = 0;
+    public void onClickButtonCloseBracket(View view) {                                                  //Обработчик закрытой скобки
+        history = buttonsBrackets.closeBrackets(history, result);
+        temporaryResultView.setText(history);
         resultView.setText(result);
     }
 
