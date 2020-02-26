@@ -15,7 +15,6 @@ public class Main extends AppCompatActivity {
     TextView resultView, historyView, historyUpView, temporaryResultView;
     Button btnPoint, btnResult, btnSplit, btnMultiply, btnPlus, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
     String result = "", history = "",debugNumbers = "", act = "", historyGlob = "";
-    Integer openBrackets = 0, closeBrackets = 0;
     ResultClass resultClass = new ResultClass();
     ButtonsBrackets buttonsBrackets = new ButtonsBrackets();
 
@@ -145,22 +144,12 @@ public class Main extends AppCompatActivity {
     }
 
     public void onClickButtonZero(View view) {                                                          //Обработчик кнопки 0
-        if(history.length() == 0){
-            result += "0";
-            history += "0";
-            resultView.setText(result);
-            temporaryResultView.setText(history);
-        }else if(history.charAt(history.length()-1) != '0' & history.charAt(history.length()-1) != ')' | history.charAt(history.length()-1) == '('){
-            result += "0";
-            history += "0";
-            resultView.setText(result);
-            temporaryResultView.setText(history);
-        }else if(result.length() > 1){
-            result += "0";
-            history += "0";
-            resultView.setText(result);
-            temporaryResultView.setText(history);
-        }
+        ButtonsNumbers buttonsNumbers = new ButtonsNumbers(history, result);
+        buttonsNumbers.zeroButton();
+        history = buttonsNumbers.history;
+        result = buttonsNumbers.result;
+        temporaryResultView.setText(history);
+        resultView.setText(result);
     }
 
     public void onClickButtonPoint(View view) {                                                         //Обработчик кнопки .
