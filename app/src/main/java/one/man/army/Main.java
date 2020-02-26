@@ -164,19 +164,12 @@ public class Main extends AppCompatActivity {
         }
 
     public void debugNumbersError(){                                                                    //Функция обработки ошибок при вводе знаков от 1 до 9
-        if(result.equals("") & act.equals("") & history.equals("")){                                    //Ошибка при которой перед цифрой не затирался 0
-            result = debugNumbers;
-            history += debugNumbers;
-            resultView.setText(result);
-            temporaryResultView.setText(history);
-        }else if(result.equals("0")){
-            resultView.setText(result);
-        }else if(history.length() > 0 & history.charAt(history.length()-1) != ')'){
-            result += debugNumbers;
-            history += debugNumbers;
-            resultView.setText(result);
-            temporaryResultView.setText(history);
-        }
+        ButtonsNumbers buttonsNumbers = new ButtonsNumbers(history, result, act, debugNumbers);
+        buttonsNumbers.numbersButtons();
+        history = buttonsNumbers.history;
+        result = buttonsNumbers.result;
+        resultView.setText(result);
+        temporaryResultView.setText(history);
     }
 
         public void debugActionError() {                                                                //Функция обработки ошибок при вводе знаков математических дейтвий /, *, +
