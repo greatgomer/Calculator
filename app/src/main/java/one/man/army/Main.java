@@ -173,45 +173,21 @@ public class Main extends AppCompatActivity {
     }
 
         public void debugActionError() {                                                                //Функция обработки ошибок при вводе знаков математических дейтвий /, *, +
-            Pattern pattern = Pattern.compile("\\d$");
-            Matcher matcher = pattern.matcher(history);
-            if(matcher.find()){
-                result = "";
-                resultView.setText(result);
-                history += act;
-                temporaryResultView.setText(history);
-            }else if(history.length() > 0 & history.charAt(history.length()-1) == ')'){
-                result = "";
-                resultView.setText(result);
-                history += act;
-                temporaryResultView.setText(history);
-            }
+            DebugActions debugActions = new DebugActions(history, result, act);
+            debugActions.actionButtons();
+            history = debugActions.history;
+            result = debugActions.result;
+            resultView.setText(result);
+            temporaryResultView.setText(history);
         }
 
     public void onClickMinus(View view) {                                                               //Функция обработки -
-        Pattern pattern = Pattern.compile("\\d$");
-        Matcher matcher = pattern.matcher(history);
-        if(result.equals("") & history.equals("")){
-            result = "-";
-            resultView.setText("");
-            history = "-";
-            temporaryResultView.setText(history);
-        }else if(history.charAt(history.length()-1) == '('){
-            result += "-";
-            resultView.setText("");
-            history += "-";
-            temporaryResultView.setText(history);
-        }else if(matcher.find()){
-            result += "-";
-            resultView.setText("");
-            history += "-";
-            temporaryResultView.setText(history);
-        }else if(history.length() > 0 & history.charAt(history.length()-1) == ')'){
-            result = "";
-            resultView.setText("");
-            history += "-";
-            temporaryResultView.setText(history);
-        }
+        DebugActions debugActions = new DebugActions(history, result, act);
+        debugActions.actionMinus();
+        history = debugActions.history;
+        result = debugActions.result;
+        resultView.setText(result);
+        temporaryResultView.setText(history);
     }
 
         public void deleteLastSymbol(){                                                                 //Функция удаления последнего символа
@@ -240,14 +216,15 @@ public class Main extends AppCompatActivity {
         }
 
     public void resultButton() {                                                                         //Функция обработки результата
-        if(history.length() == 0){
+        if(result.length() == 0){
             cleanAll();
         }else{
             String finalResult = resultClass.resultCheker(history);
             resultView.setText(finalResult);
             historyOutput(finalResult);
+            history = finalResult;
+            temporaryResultView.setText(history);
             result = "";
-            act ="";
         }
     }
     public void historyOutput(String result){                                                           //Сохранение истории дейсвий
