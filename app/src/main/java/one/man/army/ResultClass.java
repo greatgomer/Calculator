@@ -74,6 +74,7 @@ public class ResultClass {
         while (!operations.empty()) {
             finalMass.add(operations.pop());
         }
+
         return finalMass;
     }
 
@@ -114,6 +115,7 @@ public class ResultClass {
                 }
             }
         }
+
         return calculatorResult;
     }
 
@@ -134,6 +136,8 @@ public class ResultClass {
             }
         }
         arr = (String[]) arrayList.toArray(new String[arrayList.size()]);
+
         return arr;
     }
+
 }
