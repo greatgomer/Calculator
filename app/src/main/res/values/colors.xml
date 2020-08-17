@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#B185FF</color>
-    <color name="colorPrimaryDark">#B185FF</color>
-    <color name="colorAccent">#E22E31</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#2196F3</color>
+    <color name="colorAccent">#F44336</color>
     <color name="colorAC">#FF3B7E</color>
-    <color name="colorDelete">#FAC830</color>
-    <color name="colorButtonsNumbers">#D4DCFC</color>
-    <color name="colorButtonsActions">#EEE7FD</color>
+    <color name="colorDelete">#FFEB3B</color>
+    <color name="colorButtonsNumbers">#68C4CF</color>
+    <color name="colorButtonsActions">#68BCB5</color>
 </resources>
